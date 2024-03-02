@@ -59,6 +59,7 @@
       transform: translate(-50%, -50%);  
     }
   </style>
+  <script src="playDeckBridge.js"></script>
 </head>
 
 <body>
@@ -69,7 +70,7 @@
       </div>
     </div>
   </div>
-   <script src="Build/Build.loader.js"></script>
+   <script src="Build/bibiki build.loader.js"></script>
   <script>
     const maxPixelRatioMobile = 2.0;
     const maxPixelRatioDesktop = 1.5;
@@ -80,11 +81,11 @@
     var pixelRatio = Math.min(window.devicePixelRatio, maxDevicePixelRatio);
 
     var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/Build.loader.js";
+    var loaderUrl = buildUrl + "/bibiki build.loader.js";
     var config = {
-      dataUrl: buildUrl + "/5c18ed203a340fce1f5a86e2bc52e0a2.data.unityweb",
-      frameworkUrl: buildUrl + "/212dbf0c19a8f8834c0b2140e73d7485.js.unityweb",
-      codeUrl: buildUrl + "/dbcd56c8d47d3cb0625dcc7d90c3b54d.wasm.unityweb",
+      dataUrl: buildUrl + "/942441309171e74c0bab81eefa2b7714.data.unityweb",
+      frameworkUrl: buildUrl + "/4d76b2b0679123f55ddc0da9d740def1.js.unityweb",
+      codeUrl: buildUrl + "/fa19dd0f9f2fb95f0b5b9aad3769f111.wasm.unityweb",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "Dungeon Games",
       productName: "Cars Survival",
@@ -100,12 +101,15 @@
     var myGameInstance = null;
     var script = document.createElement("script");
     script.src = loaderUrl;
+    const playdeckBridgeInstance = playDeckBridge();
     script.onload = function() {
       createUnityInstance(canvas, config, function(progress) {
         progressBar.style.width = 100 * progress + "%";
+        playdeckBridgeInstance?.setLoadingProgress(progress * 100)
       }).then(function(unityInstance) {
         myGameInstance = unityInstance;
         dungeonLogo.style.display = "none";
+        playdeckBridgeInstance?.init(unityInstance);
       }).catch(function(message) {
         alert(message);
       });
